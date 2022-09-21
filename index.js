@@ -1,10 +1,12 @@
-const ImageminBlackBox = require('./src/ImageminBlackBox.cjs');
+const ImageminBlackBox = require("./src/ImageminBlackBox.cjs");
+
+console.time("minify finished!");
 
 ImageminBlackBox.minify({
-  srcFolder: 'input',
-  targetFolder: 'output',
-  subPath: 'assets/images',
+  srcFolder: "input",
+  targetFolder: "output",
+  subPath: "assets/images",
   isOptimum: false,
 }).then(() => {
-  console.log('minify finished!');
+  console.timeEnd("minify finished!");
 });

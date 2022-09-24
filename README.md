@@ -7,7 +7,7 @@ imagemin-blackbox is a node CLI tool for minify images written in Javascript.
 Use the package manager [npm](https://www.npmjs.com) to install imagemin-blackbox.
 
 ```bash
-npm i imagemin-blackbox
+npm i -g imagemin-blackbox
 ```
 
 ## Usage

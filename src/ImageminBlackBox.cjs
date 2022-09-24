@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 class ImageminBlackBox {
   constructor() {}
@@ -10,12 +10,12 @@ class ImageminBlackBox {
     const files = fs.readdirSync(dir);
 
     for (const i in files) {
-      const name = dir + '/' + files[i];
+      const name = dir + "/" + files[i];
 
       if (fs.statSync(name).isDirectory()) {
         this.getFilesByFileExt(name, _ext, _files);
       } else {
-        if (typeof _ext === 'string') {
+        if (typeof _ext === "string") {
           if (name.indexOf(_ext) > 0) {
             _files.push(name);
           }
@@ -37,7 +37,7 @@ class ImageminBlackBox {
       }
     }
 
-    return _files.map((file) => file.split('//').join('/'));
+    return _files.map((file) => file.split("//").join("/"));
   }
 
   _minifySingleImage(_options = {}) {
@@ -52,17 +52,17 @@ class ImageminBlackBox {
     return new Promise((resolve, reject) => {
       try {
         (async () => {
-          const imagemin = (await import('imagemin')).default;
+          const imagemin = (await import("imagemin")).default;
           let plugins;
 
           if (_options.isOptimum) {
-            const imageminOptipng = (await import('imagemin-optipng')).default;
-            const imageminJpegtran = (await import('imagemin-jpegtran')).default;
+            const imageminOptipng = (await import("imagemin-optipng")).default;
+            const imageminJpegtran = (await import("imagemin-jpegtran")).default;
 
             plugins = [imageminOptipng(), imageminJpegtran({ progressive: true })];
           } else {
-            const imageminPngquant = (await import('imagemin-pngquant')).default;
-            const imageminMozjpeg = (await import('imagemin-mozjpeg')).default;
+            const imageminPngquant = (await import("imagemin-pngquant")).default;
+            const imageminMozjpeg = (await import("imagemin-mozjpeg")).default;
 
             plugins = [imageminPngquant({ speed: 1, quality: [0.3, 1], strip: true }), imageminMozjpeg()];
           }
@@ -81,7 +81,7 @@ class ImageminBlackBox {
   }
 
   minify(_options = {}) {
-    _options.subPath = _options.subPath || '';
+    _options.activePath = _options.activePath || "";
     _options.isOptimum = !!_options.isOptimum;
 
     if (!_options.srcFolder) {
@@ -94,12 +94,14 @@ class ImageminBlackBox {
 
     return new Promise(async (resolve, reject) => {
       try {
-        const validFileExt = ['.png', '.jpg', '.jpeg'];
-        const pngFiles = this.getFilesByFileExt(`${_options.srcFolder}/${_options.subPath}`, validFileExt);
+        const validFileExt = [".png", ".jpg", ".jpeg"];
+        const pngFiles = this.getFilesByFileExt(`${_options.srcFolder}/${_options.activePath}`, validFileExt);
 
         for (let index = 0; index < pngFiles.length; index++) {
           const srcFilePath = pngFiles[index];
-          const targetFilePath = path.dirname(srcFilePath.replace(`${_options.srcFolder}/`, `${_options.targetFolder}/`));
+          const targetFilePath = path.dirname(
+            srcFilePath.replace(`${_options.srcFolder}/`, `${_options.targetFolder}/`)
+          );
 
           await this._minifySingleImage({
             srcPath: srcFilePath,

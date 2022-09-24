@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "cli tool for minify images",
   "main": "index.js",
+  "bin": {
+    "imagemin-blackbox": "./index.js"
+  },
   "scripts": {
     "test": "node index.js"
   },

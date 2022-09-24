@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const ImageminBlackBox = require("./src/ImageminBlackBox.cjs");
 
 console.time("ImageminBlackBox:: minify complete");

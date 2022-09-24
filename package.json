@@ -1,13 +1,19 @@
 {
   "name": "imagemin-blackbox",
   "version": "0.0.1",
-  "description": "",
+  "description": "cli tool for minify images",
   "main": "index.js",
   "scripts": {
     "test": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "imagemin",
+    "image",
+    "compress",
+    "tiny",
+    "minify"
+  ],
+  "author": "Doron Mor",
   "license": "ISC",
   "dependencies": {
     "cli-progress": "^3.11.2",

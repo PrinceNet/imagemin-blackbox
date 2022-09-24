@@ -21,7 +21,7 @@
     "minify"
   ],
   "author": "Doron Mor",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cli-progress": "^3.11.2",
     "imagemin": "^8.0.1",

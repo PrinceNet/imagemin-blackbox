@@ -1,6 +1,6 @@
 {
   "name": "imagemin-blackbox",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "cli tool for minify images",
   "main": "index.js",
   "bin": {

@@ -1,19 +1,14 @@
 const ImageminBlackBox = require("./src/ImageminBlackBox.cjs");
 
-console.time("minify finished!");
+console.time("ImageminBlackBox:: minify complete");
 
 const CWD = process.cwd();
-var argv = require("minimist")(process.argv.slice(2));
+const ARGV = require("minimist")(process.argv.slice(2));
 
-const SRC_FOLDER = argv.srcFolder || `${CWD}/input`; // use absolute path
-const TARGET_FOLDER = argv.targetFolder || `${CWD}/output`; // use absolute path
-const ACTIVE_PATH = argv.activePath || ``;
-const IS_OPTIMUM = argv.isOptimum || false;
-
-console.log(`Source folder: ${SRC_FOLDER}`);
-console.log(`Target folder: ${TARGET_FOLDER}`);
-console.log(`Active path: ${ACTIVE_PATH ? ACTIVE_PATH : 'everything inside "Source folder"'}`);
-console.log(`Is optimum: `, IS_OPTIMUM);
+const SRC_FOLDER = ARGV.srcFolder || `${CWD}/input`; // use absolute path
+const TARGET_FOLDER = ARGV.targetFolder || `${CWD}/output`; // use absolute path
+const ACTIVE_PATH = ARGV.activePath || ``;
+const IS_OPTIMUM = ARGV.isOptimum || false;
 
 ImageminBlackBox.minify({
   srcFolder: SRC_FOLDER,
@@ -21,5 +16,5 @@ ImageminBlackBox.minify({
   activePath: ACTIVE_PATH,
   isOptimum: IS_OPTIMUM,
 }).then(() => {
-  console.timeEnd("minify finished!");
+  console.timeEnd("ImageminBlackBox:: minify complete");
 });

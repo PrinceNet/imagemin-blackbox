@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const cliProgress = require("cli-progress");
 
 class ImageminBlackBox {
   constructor() {}
@@ -92,10 +93,23 @@ class ImageminBlackBox {
       throw new Error(`ImageminBlackBox:: no 'targetFolder' provided !`);
     }
 
+    console.log(`ImageminBlackBox:: Source folder: ${_options.srcFolder}`);
+    console.log(`ImageminBlackBox:: Target folder: ${_options.targetFolder}`);
+    console.log(
+      `ImageminBlackBox:: Active path: ${_options.activePath ? _options.activePath : 'all inside "Source folder"'}`
+    );
+    console.log(`ImageminBlackBox:: Is optimum: `, _options.isOptimum);
+
     return new Promise(async (resolve, reject) => {
       try {
         const validFileExt = [".png", ".jpg", ".jpeg"];
         const pngFiles = this.getFilesByFileExt(`${_options.srcFolder}/${_options.activePath}`, validFileExt);
+        const bar = new cliProgress.SingleBar(
+          { format: "ImageminBlackBox:: minifying... {bar} {percentage}% | ETA: {eta}s | {value}/{total}" },
+          cliProgress.Presets.shades_classic
+        );
+
+        bar.start(pngFiles.length, 0);
 
         for (let index = 0; index < pngFiles.length; index++) {
           const srcFilePath = pngFiles[index];
@@ -108,7 +122,11 @@ class ImageminBlackBox {
             targetPath: targetFilePath,
             isOptimum: _options.isOptimum,
           });
+
+          bar.update(index + 1);
         }
+
+        bar.stop();
 
         resolve();
       } catch (error) {
